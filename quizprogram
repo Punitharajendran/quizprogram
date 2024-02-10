@@ -1,0 +1,100 @@
+import java.util.*;
+public class Quizprog {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String command;
+        String lang="java";
+        int n=100;
+        
+        int cnt = 0;
+        boolean quizCreated = false; // Flag to check if the quiz has been created
+        String[] question = new String[n];
+        String[] option1 = new String[n];
+        String[] option2 = new String[n];
+        int[] correctAns = new int[n];
+        int[] userans = new int[n];
+       do {
+            System.out.println("Enter a command: (create, take, view, list, exit)");
+            command = scan.next();
+
+            switch (command) {
+                case "create":
+                { // Quiz creation
+                    System.out.println("Enter the name of the quize: java(or)python");
+                    lang = scan.next();
+                    System.out.println("Enter number of questions:");
+                    n = scan.nextInt();
+                   scan.nextLine();
+                    // Input questions and options
+                    for (int i = 0; i < n; i++) {
+                        System.out.println("Enter question " + (i + 1));
+                        question[i] = scan.nextLine();
+                        System.out.println("Option 1:");
+                        option1[i] = scan.nextLine();
+                        System.out.println("Option 2:");
+                        option2[i] = scan.nextLine();
+                        System.out.println("Enter the correct option:");
+                        correctAns[i] = scan.nextInt();
+                        scan.nextLine(); // Consume newline
+                    }
+                    System.out.println("Quiz created");
+                    quizCreated =true;
+                    break;
+
+                }
+                case "take":
+                {// Take quiz
+                	
+                    System.out.println("Enter the name of the quiz:");
+                    String lang1 = scan.next();scan.nextLine();
+                    if (lang1.equals(lang) && quizCreated == true) 
+                    {
+                        for (int i = 0; i < n; i++) {
+                            System.out.println("Question " + (i + 1) + ": " + question[i]);
+                            System.out.println("Option 1: " + option1[i]);
+                            System.out.println("Option 2: " + option2[i]);
+                            System.out.println("Enter your answer:");
+                            userans[i] = scan.nextInt();
+                            if (userans[i] == correctAns[i]) {
+                                System.out.println("Correct");
+                                cnt++;
+                                } 
+                            else 
+                                System.out.println("Incorrect. The correct option is: Option " + correctAns[i]);
+                            
+                              }
+                        System.out.println("Your score is " + cnt + " out of " + n);
+                       }
+                    else
+                    {System.out.println("Quiz not ate created");}
+                    break;
+                   }
+                case "view":
+                { // View quiz
+                    System.out.println("Enter a language:");
+                    String viewquiz = scan.next();
+                    if (viewquiz.equals(lang)) 
+                        System.out.println("Quiz was found");
+                    else 
+                        System.out.println("Quiz not found.");
+                    break;
+                }
+
+                case "list":
+                { // List quizzes
+                    System.out.println("Quizzes:");
+                    System.out.println("- " + lang);
+                    break;
+                }
+
+                case "exit":
+                {  return;}
+
+                default:
+                    break;
+            }
+
+           } while (true);
+    }
+}
